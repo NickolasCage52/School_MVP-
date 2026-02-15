@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Direction {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  orderNum Int       @default(0)
+  programs Program[]
+}
+
+model Program {
+  id          String   @id @default(cuid())
+  directionId String
+  direction   Direction @relation(fields: [directionId], references: [id], onDelete: Cascade)
+  title       String
+  subtitle    String?
+  slug        String   @unique
+  tags        String   // JSON array string
+  shortDesc   String?
+  targetAudience String // JSON array
+  outcomes    String   // JSON array
+  structure   String   // JSON array of { title, content }
+  duration    String?
+  format      String?
+  level       String?
+  startDate   String?
+  faq            String?  // JSON array of { q, a }
+  howItWorks    String?  // text: как проходит обучение
+  testimonials  String?  // JSON array of { text, author, role? }
+  instructors   String?  // JSON array of { name, role, bio }
+  orderNum      Int      @default(0)
+  packages      Package[]
+  leads         Lead[]
+}
+
+model Package {
+  id         String   @id @default(cuid())
+  programId  String
+  program    Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  name       String
+  price      Int      // in rubles
+  features   String   // JSON array
+  recommended Boolean @default(false)
+  orderNum   Int      @default(0)
+}
+
+model Lead {
+  id               String   @id @default(cuid())
+  programId        String
+  program          Program? @relation(fields: [programId], references: [id])
+  programName      String
+  direction        String?  // direction name at submit time
+  selectedPackage  String?
+  priceShown       Int?     // price in rubles at submit time
+  status           String   @default("New") // New | In work | Done | Invalid
+  clientName       String?
+  email            String?
+  phone            String?  // normalized E.164-like
+  telegramUserId   String?
+  telegramUsername  String?
+  telegramFirstName String?
+  telegramLastName  String?
+  utmSource        String?
+  utmMedium        String?
+  utmCampaign      String?
+  utmContent       String?
+  utmTerm          String?
+  answers          String?  // JSON: goal, level, schedule, comment
+  device           String?  // JSON: platform, userAgent, language, theme
+  payload          String?  // JSON extra/raw
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}

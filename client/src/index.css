@@ -1,0 +1,288 @@
+/* SkillUp Academy — дизайн-система: Montserrat + Poppins, бирюза + янтарь */
+@import "./fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========== Design system: образование, рост, энергия (как Netology/Skillbox, но свой стиль) ========== */
+:root {
+  /* Палитра: бирюза (рост) + янтарь (энергия, CTA) + коралловый акцент */
+  --brand-primary: #0d9488;
+  --brand-primary-light: #14b8a6;
+  --brand-secondary: #f59e0b;
+  --brand-secondary-light: #fbbf24;
+  --brand-accent: #ec4899;
+  --brand-accent-light: #f472b6;
+
+  /* Поверхности */
+  --surf-1: #ffffff;
+  --surf-2: #f0fdfa;
+  --text-primary: #0f766e;
+  --text-muted: #64748b;
+
+  /* Telegram (подстраиваем под бренд) */
+  --tg-theme-bg-color: var(--surf-1);
+  --tg-theme-text-color: var(--text-primary);
+  --tg-theme-hint-color: #64748b;
+  --tg-theme-link-color: var(--brand-primary);
+  --tg-theme-button-color: var(--brand-primary);
+  --tg-theme-button-text-color: #ffffff;
+  --tg-theme-secondary-bg-color: var(--surf-2);
+
+  /* Градиенты — бирюза → изумруд, янтарь для CTA */
+  --gradient-hero: linear-gradient(135deg, rgba(13, 148, 136, 0.12) 0%, rgba(245, 158, 11, 0.08) 50%, rgba(236, 72, 153, 0.04) 100%);
+  --gradient-cta: linear-gradient(135deg, #0d9488 0%, #14b8a6 40%, #2dd4bf 100%);
+  --gradient-cta-warm: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  --gradient-card: linear-gradient(180deg, rgba(13, 148, 136, 0.06) 0%, rgba(245, 158, 11, 0.03) 100%);
+  --gradient-section: linear-gradient(180deg, rgba(13, 148, 136, 0.06) 0%, transparent 40%);
+  --gradient-mesh: radial-gradient(ellipse 90% 60% at 50% -15%, rgba(13, 148, 136, 0.15), transparent 50%),
+    radial-gradient(ellipse 60% 50% at 100% 40%, rgba(245, 158, 11, 0.08), transparent),
+    radial-gradient(ellipse 50% 40% at 0% 70%, rgba(236, 72, 153, 0.05), transparent);
+
+  /* Радиусы */
+  --radius-card: 20px;
+  --radius-button: 14px;
+  --radius-input: 12px;
+
+  /* Тени */
+  --shadow-card: 0 4px 14px rgba(13, 148, 136, 0.06);
+  --shadow-card-hover: 0 16px 40px rgba(13, 148, 136, 0.12);
+  --shadow-glow: 0 0 28px rgba(13, 148, 136, 0.2);
+  --shadow-glow-accent: 0 0 24px rgba(245, 158, 11, 0.35);
+
+  /* Safe area */
+  --safe-area-top: env(safe-area-inset-top, 0);
+  --safe-area-right: env(safe-area-inset-right, 0);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-left: env(safe-area-inset-left, 0);
+
+  /* Шрифты: Montserrat (текст) + Poppins (заголовки) — 8px grid, консистентные веса */
+  --font-sans: "Montserrat", var(--tg-theme-font-family), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: "Montserrat", var(--tg-theme-font-family), system-ui, sans-serif;
+  --font-heading: "Poppins", "Montserrat", var(--tg-theme-font-family), system-ui, sans-serif;
+  --text-h1: 2rem;
+  --text-h2: 1.5rem;
+  --text-h3: 1.25rem;
+  --text-body: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+}
+
+/* Тёмная тема */
+[data-theme="dark"],
+.dark {
+  --surf-1: #0f172a;
+  --surf-2: #1e293b;
+  --text-primary: #f0fdfa;
+  --text-muted: #94a3b8;
+  --gradient-hero: linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(245, 158, 11, 0.1) 50%, transparent 100%);
+  --gradient-card: linear-gradient(180deg, rgba(13, 148, 136, 0.1) 0%, transparent 100%);
+  --gradient-section: linear-gradient(180deg, rgba(13, 148, 136, 0.08) 0%, transparent 30%);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  background: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Typography: headings — Poppins; body — Montserrat */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.3;
+  font-weight: 600;
+}
+h1 { font-size: var(--text-h1); font-weight: 700; }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
+body, p, input, select, textarea, button, label {
+  font-family: var(--font-body);
+}
+
+input,
+select,
+textarea,
+button {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+/* Form inputs: focus ring, optional success/error states */
+.input-focus-ring:focus {
+  border-color: var(--tg-theme-link-color, var(--brand-primary));
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+}
+.input-error {
+  border-color: #f87171 !important;
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
+}
+.input-success {
+  border-color: #34d399;
+}
+
+/* Keyboard focus: ring/outline is applied via Tailwind focus-visible:ring on interactive elements */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+#root {
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  padding-top: var(--safe-area-top);
+  padding-left: var(--safe-area-left);
+  padding-right: var(--safe-area-right);
+  padding-bottom: var(--safe-area-bottom);
+}
+
+.safe-area-bottom {
+  padding-bottom: max(1rem, var(--safe-area-bottom));
+}
+.safe-area-top {
+  padding-top: max(0.25rem, var(--safe-area-top));
+}
+
+/* Utility: CTA gradient button — vivid, hover scale, focus */
+.btn-cta {
+  font-family: var(--font-heading);
+  background: var(--gradient-cta);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+@media (hover: hover) {
+  .btn-cta:hover {
+    filter: brightness(1.06);
+    transform: scale(1.02);
+    box-shadow: 0 8px 28px rgba(13, 148, 136, 0.5);
+  }
+}
+.btn-cta:active {
+  transform: scale(0.98);
+}
+.btn-cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* Secondary / outline button */
+.btn-secondary {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  border: 2px solid var(--brand-primary);
+  color: var(--brand-primary);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+@media (hover: hover) {
+  .btn-secondary:hover {
+    background: rgba(13, 148, 136, 0.1);
+    color: var(--brand-primary-light);
+  }
+}
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+.btn-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.3);
+}
+
+/* Page background: mesh + optional gradient shift */
+.page-bg {
+  background: var(--gradient-mesh);
+  background-color: var(--tg-theme-bg-color);
+}
+.hero-gradient-animate {
+  background-size: 200% 200%;
+  animation: gradientShift 10s ease infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-animate {
+    animation: none;
+  }
+}
+
+/* Card hover: scale 1.05 + shadow for depth (desktop) */
+.card-hover-scale {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+@media (hover: hover) {
+  .card-hover-scale:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-card-hover);
+  }
+}
+.card-hover-scale:active {
+  transform: scale(0.99);
+}
+
+/* Accordion content smooth reveal */
+details.accordion-smooth summary {
+  transition: color 0.2s ease;
+}
+details.accordion-smooth[open] summary {
+  padding-bottom: 0.25rem;
+}
+details.accordion-smooth .accordion-body {
+  animation: accordionOpen 0.25s ease-out;
+}
+@keyframes accordionOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hide scrollbar for horizontal carousel */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Skeleton shimmer for loading states */
+@keyframes skeletonShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, var(--surf-2) 25%, var(--surf-1) 50%, var(--surf-2) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}

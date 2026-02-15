@@ -1,0 +1,20 @@
+{
+  "name": "school-mvp",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --kill-others \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "seed": "cd server && npm run db:seed",
+    "lint": "npm run lint:server && npm run lint:client",
+    "qa:smoke": "npm run build && npm run lint",
+    "lint:server": "cd server && npx tsc --noEmit",
+    "lint:client": "cd client && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
