@@ -3,6 +3,7 @@ export function CourseCoverBlob({ directionSlug, className = "h-20 w-full" }: { 
   const gradients: Record<string, [string, string]> = {
     marketing: ["#0d9488", "#f59e0b"],
     design: ["#ec4899", "#14b8a6"],
+    programming: ["#6366f1", "#14b8a6"],
     analytics: ["#14b8a6", "#0d9488"],
   };
   const pair = (gradients[directionSlug ?? ""] ?? gradients.marketing) as [string, string];

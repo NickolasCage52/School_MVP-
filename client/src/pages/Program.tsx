@@ -11,7 +11,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { api } from "../lib/api";
-import { getFriendlyErrorMessage } from "../lib/errors";
+import { getMockProgram } from "../data/mockCatalog";
 import { trackEvent } from "../lib/analytics";
 import { useTelegram, useTelegramBackButton, useTelegramMainButton } from "../hooks/useTelegram";
 import { ProgramSkeleton } from "../components/Skeletons";
@@ -53,7 +53,17 @@ export function Program() {
         const rec = p.packages?.find((x) => x.recommended);
         setSelectedPackage(rec ?? p.packages?.[0] ?? null);
       })
-      .catch((e) => setError(getFriendlyErrorMessage(e)));
+      .catch(() => {
+        // Режим презентации — моковые данные
+        const mock = getMockProgram(programId);
+        if (mock) {
+          setProgram(mock);
+          const rec = mock.packages?.find((x) => x.recommended);
+          setSelectedPackage(rec ?? mock.packages?.[0] ?? null);
+        } else {
+          setError("Программа не найдена");
+        }
+      });
   };
 
   useEffect(() => {

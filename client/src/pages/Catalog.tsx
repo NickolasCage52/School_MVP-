@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, X, SlidersHorizontal, Menu } from "lucide-react";
 import { api } from "../lib/api";
-import { getFriendlyErrorMessage } from "../lib/errors";
+import { mockCatalog } from "../data/mockCatalog";
 import { trackEvent } from "../lib/analytics";
 import { useTelegram, useTelegramBackButton } from "../hooks/useTelegram";
 import { CatalogSkeleton } from "../components/Skeletons";
@@ -29,7 +29,7 @@ function fromPricePlaceholder(_program: FlatProgram): number {
 export function Catalog() {
   const navigate = useNavigate();
   const [data, setData] = useState<CatalogResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [searchDebounced, setSearchDebounced] = useState("");
   const [filterDirection, setFilterDirection] = useState("");
@@ -52,7 +52,10 @@ export function Catalog() {
     api
       .catalog()
       .then(setData)
-      .catch((e) => setError(getFriendlyErrorMessage(e)));
+      .catch(() => {
+        // Режим презентации (GitHub Pages без бэкенда) — моковые данные
+        setData(mockCatalog);
+      });
   }, []);
 
   const flatPrograms = useMemo((): FlatProgram[] => {

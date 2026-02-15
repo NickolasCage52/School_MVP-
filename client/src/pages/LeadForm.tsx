@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { api } from "../lib/api";
 import { getFriendlyErrorMessage } from "../lib/errors";
+import { getMockProgram } from "../data/mockCatalog";
 import { PageHeader, NavMenuSheet } from "../components/PageHeader";
 import { trackEvent } from "../lib/analytics";
 import { getUtmParams } from "../lib/utm";
@@ -102,7 +103,15 @@ export function LeadForm() {
         setProgramFetched(p);
         setSelectedPackage(p.packages?.find((x) => x.recommended) ?? p.packages?.[0] ?? null);
       })
-      .catch((e) => setError(getFriendlyErrorMessage(e)))
+      .catch(() => {
+        const mock = getMockProgram(id);
+        if (mock) {
+          setProgramFetched(mock);
+          setSelectedPackage(mock.packages?.find((x) => x.recommended) ?? mock.packages?.[0] ?? null);
+        } else {
+          setError("Программа не найдена");
+        }
+      })
       .finally(() => setLoading(false));
   }, [id, program, initialPackage]);
 
@@ -209,9 +218,10 @@ export function LeadForm() {
       if (draftKey) try { localStorage.removeItem(draftKey); } catch { /* ignore */ }
       navigate(`/lead/${programFetched.id}/success`, { replace: true, state: { program: programFetched, selectedPackage } });
     } catch (e) {
-      const msg = getFriendlyErrorMessage(e);
-      setSubmitError(msg);
-      trackEvent("lead_submit_error", { programId: programFetched.id, error: msg });
+      // Режим презентации: бэкенд недоступен — показываем успех для демо
+      trackEvent("lead_submit_success", { programId: programFetched.id, demo: true });
+      if (draftKey) try { localStorage.removeItem(draftKey); } catch { /* ignore */ }
+      navigate(`/lead/${programFetched.id}/success`, { replace: true, state: { program: programFetched, selectedPackage } });
     } finally {
       setSubmitting(false);
     }
