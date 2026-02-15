@@ -20,7 +20,7 @@ function PageLoader() {
 function App() {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL === "/" ? undefined : import.meta.env.BASE_URL.replace(/\/$/, "")}>
         <NetworkBanner />
         <Suspense fallback={<PageLoader />}>
           <Routes>
