@@ -283,9 +283,9 @@ export function Catalog() {
                     <div className="relative h-20 w-full shrink-0 overflow-hidden">
                       <CourseCoverBlob directionSlug={prog.directionSlug} className="absolute inset-0 h-full w-full" />
                       <div className="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-full bg-black/30 px-2 py-0.5 text-xs font-medium text-white backdrop-blur-sm">
-                        <span>⭐ 4.8</span>
+                        <span>⭐ {(prog.rating ?? 4.8).toFixed(1)}</span>
                         <span>·</span>
-                        <span>1 200 отзывов</span>
+                        <span>{(prog.reviewCount ?? 1200).toLocaleString("ru-RU")} отзывов</span>
                       </div>
                     </div>
                     <div className="p-4">

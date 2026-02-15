@@ -144,10 +144,10 @@ export function Program() {
             {program.subtitle && <p className="mt-1 text-sm text-tg-hint">{program.subtitle}</p>}
             <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-tg-hint">
               <span className="inline-flex items-center gap-1">
-                <Star className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden /> 4,8
+                <Star className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden /> {(program.rating ?? 4.8).toFixed(1).replace(".", ",")}
               </span>
               <span className="inline-flex items-center gap-1">
-                <Users className="h-4 w-4" aria-hidden /> 1 200+ выпускников
+                <Users className="h-4 w-4" aria-hidden /> {(program.graduatesCount ?? program.reviewCount ?? 1200).toLocaleString("ru-RU")}+ выпускников
               </span>
               <span className="inline-flex items-center gap-1">
                 <Award className="h-4 w-4 text-brand-primary" aria-hidden /> Сертификат

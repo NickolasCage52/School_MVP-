@@ -18,6 +18,9 @@ export interface ProgramSummary {
   level: string | null;
   startDate: string | null;
   orderNum?: number;
+  rating?: number;
+  reviewCount?: number;
+  graduatesCount?: number;
 }
 
 export interface Testimonial {
